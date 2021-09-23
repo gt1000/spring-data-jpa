@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 	id 'java'
 }
 
@@ -20,8 +21,15 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.querydsl:querydsl-jpa'
+	// 버전이 바뀌어서인지, jpa 만 가지고는 querydsl-apt, querydsl-codegen 을 다운 받지 않음
+	implementation 'com.querydsl:querydsl-apt'
+
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// 버전을 명시적으로 지적해 주지 않으면, intellij가 다운을 받지 못함
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
@@ -32,3 +40,26 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+// querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+sourceSets {
+	main.java.srcDir querydslDir
+}
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+
+// 없으면 cannot find symbol class 오류남
+compileQuerydsl.doFirst {
+	if(file(querydslDir).exists() )
+		delete(file(querydslDir))
+}
+// querydsl 추가 끝
