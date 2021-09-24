@@ -2,6 +2,8 @@ package gt1000.configuration;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,35 +16,32 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
+@RequiredArgsConstructor
 @Configuration
 public class JpaConfig {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Value("${spring.datasource.driver-class-name}")
-    private String driverClassName;
-    @Value("${spring.datasource.url}")
-    private String url;
-    @Value("${spring.datasource.username}")
-    private String username;
-    @Value("${spring.datasource.password}")
-    private String password;
-    @Value("${spring.datasource.hikari.maximum-pool-size}")
-    private Integer maximumPoolSize;
-    @Value("${spring.datasource.hikari.minimum-idle}")
-    private Integer minimumIdle;
+    private final YAMLConfig yamlConfig;
 
     // TODO 복호화 해서 사용해야 함
     @Bean
     public DataSource dataSource() {
+        YAMLConfig.Datasource datasource = yamlConfig.getDatasource();
+        System.out.println("-------------------------- " + datasource.getDriverClassName());
+        System.out.println("-------------------------- " + datasource.getUrl());
+        System.out.println("-------------------------- " + datasource.getUsername());
+        System.out.println("-------------------------- " + datasource.getPassword());
+        System.out.println("-------------------------- " + datasource.getHikari().getMaximumPoolSize());
+        System.out.println("-------------------------- " + datasource.getHikari().getMinimumIdle());
         HikariDataSource hikariDataSource = new HikariDataSource();
-        hikariDataSource.setDriverClassName(driverClassName);
-        hikariDataSource.setJdbcUrl(url);
-        hikariDataSource.setUsername(username);
-        hikariDataSource.setPassword(password);
-        hikariDataSource.setMaximumPoolSize(maximumPoolSize);
-        hikariDataSource.setMinimumIdle(minimumIdle);
+        hikariDataSource.setDriverClassName(datasource.getDriverClassName());
+        hikariDataSource.setJdbcUrl(datasource.getUrl());
+        hikariDataSource.setUsername(datasource.getUsername());
+        hikariDataSource.setPassword(datasource.getPassword());
+        hikariDataSource.setMaximumPoolSize(datasource.getHikari().getMaximumPoolSize());
+        hikariDataSource.setMinimumIdle(datasource.getHikari().getMinimumIdle());
         return hikariDataSource;
     }
 
@@ -50,6 +49,7 @@ public class JpaConfig {
     public EntityManagerFactory entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
+        entityManagerFactoryBean.setPackagesToScan("gt1000");
         // spring boot는 아래가 필요 없지 싶은데...
 //        entityManagerFactoryBean.setPersistenceUnitName("MariaUnit");
 //        entityManagerFactoryBean.setPersistenceXmlLocation("classpath:/META-INF/persistence.xml");

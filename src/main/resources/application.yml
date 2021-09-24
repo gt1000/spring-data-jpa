@@ -35,5 +35,5 @@ logging:
     # binding ?? ? ??
     org.hibernate.type.descriptor.sql: trace
     # org.springframework.web: debug
-    org.springframework: debug
+    org.springframework: info
     org.hibernate: info
