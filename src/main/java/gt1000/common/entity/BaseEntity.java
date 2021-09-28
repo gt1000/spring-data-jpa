@@ -1,4 +1,4 @@
-package gt1000.baseentity;
+package gt1000.common.entity;
 
 import lombok.Getter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

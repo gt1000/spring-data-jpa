@@ -1,17 +1,12 @@
 package gt1000.item;
 
-import gt1000.baseentity.BaseTimeEntity;
-import gt1000.item.ItemSellStatus;
+import gt1000.common.entity.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PROTECTED;

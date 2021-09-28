@@ -30,6 +30,8 @@ dependencies {
 	// 버전을 명시적으로 지적해 주지 않으면, intellij가 다운을 받지 못함
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 	implementation 'org.projectlombok:lombok:1.18.20'
+	// 버전을 명시적으로 지적해 주지 않으면, intellij가 다운을 받지 못함
+	implementation 'org.modelmapper:modelmapper:2.4.4'
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -39,6 +41,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 test {

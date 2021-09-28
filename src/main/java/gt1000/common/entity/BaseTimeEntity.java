@@ -1,4 +1,4 @@
-package gt1000.baseentity;
+package gt1000.common.entity;
 
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTimeEntity {
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     @Column(name = "created_date", updatable = false)
     private LocalDateTime createdDate;
 }

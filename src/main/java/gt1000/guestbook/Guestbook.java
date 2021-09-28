@@ -1,6 +1,6 @@
 package gt1000.guestbook;
 
-import gt1000.baseentity.BaseTimeEntity;
+import gt1000.common.entity.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,4 +32,12 @@ public class Guestbook extends BaseTimeEntity {
 
     @Column(length = 50, nullable = false)
     private String writer;
+
+    public void changeTile(String tile) {
+        this.title = tile;
+    }
+
+    public void changeContent(String content) {
+        this.content = content;
+    }
 }
