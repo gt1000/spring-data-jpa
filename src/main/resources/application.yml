@@ -36,4 +36,5 @@ logging:
     org.hibernate.type.descriptor.sql: trace
     # org.springframework.web: debug
     org.springframework: info
-    org.hibernate: info
+    # info 로 하면 sql 로그가 나오지 않음
+    org.hibernate: debug

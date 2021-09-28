@@ -3,8 +3,6 @@ package gt1000.configuration;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -29,12 +27,6 @@ public class JpaConfig {
     @Bean
     public DataSource dataSource() {
         YAMLConfig.Datasource datasource = yamlConfig.getDatasource();
-        System.out.println("-------------------------- " + datasource.getDriverClassName());
-        System.out.println("-------------------------- " + datasource.getUrl());
-        System.out.println("-------------------------- " + datasource.getUsername());
-        System.out.println("-------------------------- " + datasource.getPassword());
-        System.out.println("-------------------------- " + datasource.getHikari().getMaximumPoolSize());
-        System.out.println("-------------------------- " + datasource.getHikari().getMinimumIdle());
         HikariDataSource hikariDataSource = new HikariDataSource();
         hikariDataSource.setDriverClassName(datasource.getDriverClassName());
         hikariDataSource.setJdbcUrl(datasource.getUrl());

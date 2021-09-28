@@ -4,6 +4,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -69,5 +73,20 @@ class ItemRepositoryTest {
         for (Item item : items) {
             System.out.println(item);
         }
+    }
+
+    @Test
+    @DisplayName("페이징 처리")
+    public void pageable() {
+        Sort sort = Sort.by("id").descending();
+
+        Pageable pageable = PageRequest.of(0, 10, sort);
+        Page<Item> result = itemRepository.findAll(pageable);
+        System.out.println("total page = " + result.getTotalPages());
+        System.out.println("total count = " + result.getTotalElements());
+        System.out.println("number = " + result.getNumber());
+        System.out.println("size = " + result.getSize());
+        System.out.println("isFirst = " + result.isFirst());
+        System.out.println("isLast = " + result.isLast());
     }
 }
