@@ -18,9 +18,6 @@ import javax.sql.DataSource;
 @Configuration
 public class JpaConfig {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     private final YAMLConfig yamlConfig;
 
     // TODO 복호화 해서 사용해야 함
@@ -56,7 +53,7 @@ public class JpaConfig {
     }
 
     @Bean
-    public JPAQueryFactory jpaQueryFactory() {
+    public JPAQueryFactory jpaQueryFactory(EntityManager entityManager) {
         return new JPAQueryFactory(entityManager);
     }
 }
