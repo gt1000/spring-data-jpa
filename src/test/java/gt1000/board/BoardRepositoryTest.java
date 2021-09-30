@@ -25,6 +25,19 @@ class BoardRepositoryTest {
     private BoardRepository boardRepository;
 
     @Test
+    @DisplayName("검색")
+    public void search() {
+        boardRepository.search();
+    }
+
+    @Test
+    @DisplayName("검색 페이지")
+    public void searchPage() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending());
+        Page<Object[]> result = boardRepository.searchPage("t", "1", pageable);
+    }
+
+    @Test
     @DisplayName("조회")
     public void read() {
         Optional<Board> result = boardRepository.findById(50L);
