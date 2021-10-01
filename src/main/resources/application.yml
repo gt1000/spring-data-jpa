@@ -33,3 +33,4 @@ logging:
     #org.springframework: info
     # info 로 하면 sql 로그가 나오지 않음
     org.hibernate.SQL: debug
+    org.springframework.security.web: trace
