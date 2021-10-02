@@ -34,6 +34,9 @@ dependencies {
 	// 버전을 명시적으로 지적해 주지 않으면, intellij가 다운을 받지 못함
 	implementation 'org.modelmapper:modelmapper:2.4.4'
 
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
