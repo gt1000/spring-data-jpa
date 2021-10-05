@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  db:
+    container_name: spring-data-jpa
+    image: mariadb:10.6.4
+    environment:
+      - MARIADB_DATABASE=study
+#      - MARIADB_USER=root
+#      - MARIADB_PASSWORD=root
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes
+      - TZ=Asia/Seoul
+    volumes:
+      - ./doc/database:/database:ro
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+    ports:
+      - "3306:3306"
